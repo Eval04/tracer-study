@@ -20,7 +20,6 @@ $stmt = $pdo->prepare("
 $stmt->execute([$nim]);
 $jawabanList = $stmt->fetchAll();
 
-// Kelompokkan berdasarkan kategori
 $grouped = [];
 foreach ($jawabanList as $item) {
     $grouped[$item['nama_kategori']][] = $item;
@@ -32,68 +31,113 @@ foreach ($jawabanList as $item) {
 <head>
     <meta charset="UTF-8">
     <title>Jawaban Mahasiswa</title>
-    <link rel="stylesheet" href="style/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .container {
-            max-width: 960px;
-            margin: auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-        }
+    body {
+        background-color:rgb(255, 255, 255);
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
+    .custom-header {
+        background-color:rgb(255, 255, 255);
+        padding: 20px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-bottom: 3px solid rgb(2, 63, 124);
+        position: relative;
+    }
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            vertical-align: top;
-        }
+    .custom-header img {
+        max-height: 50px;
+        z-index: 1;
+    }
 
-        th {
-            background: #f8f8f8;
-        }
+    .custom-header .title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
 
-        h2 {
-            margin-top: 40px;
-        }
-    </style>
+    .custom-header .title h4 {
+        margin: 0;
+        font-weight: 700;
+        color: #003366;
+    }
+
+    .custom-header .title p {
+        margin: 0;
+        font-size: 14px;
+        color: #003366;
+    }
+
+    .container-box {
+        max-width: 960px;
+        margin: 30px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .section-box {
+        margin-bottom: 30px;
+    }
+
+    .section-box h5 {
+        font-weight: bold;
+        color: #004a99;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+    }
+
+    .soal-label {
+        font-weight: 500;
+        margin-top: 15px;
+    }
+
+    .jawaban-box {
+        background: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px 15px;
+        margin-top: 5px;
+    }
+
+    h4, p {
+        color: black;
+    }
+</style>
+
 </head>
 <body>
-<div class="container">
-    <h1>Jawaban Mahasiswa: <?= htmlspecialchars($nim) ?></h1>
 
-    <?php if (count($grouped) > 0): ?>
-        <?php foreach ($grouped as $kategori => $items): ?>
-            <h2><?= htmlspecialchars($kategori) ?></h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Pertanyaan</th>
-                        <th>Jawaban</th>
-                        <th>Tanggal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($items as $i => $row): ?>
-                        <tr>
-                            <td><?= $i + 1 ?></td>
-                            <td><?= htmlspecialchars($row['soal']) ?></td>
-                            <td><?= htmlspecialchars($row['jawaban']) ?></td>
-                            <td><?= htmlspecialchars($row['tanggal_submit']) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>Belum ada jawaban dari mahasiswa ini.</p>
-    <?php endif; ?>
+<!-- Custom Header -->
+<div class="custom-header">
+    <img src="includes/img/Logo-PPSUNM 1.png" alt="PPS UNM">
+    <div class="title">
+        <h4>Tracer Study</h4>
+        <p>Program Pascasarjana - Universitas Negeri Makassar</p>
+    </div>
 </div>
+
+<!-- Main Content -->
+<div class="container-box">
+    <h4 class="mb-4 text-center text-primary">Detail Jawaban Mahasiswa: <?= htmlspecialchars($nim) ?></h4>
+
+    <?php foreach ($grouped as $kategori => $items): ?>
+        <div class="section-box">
+            <h5><?= htmlspecialchars($kategori) ?></h5>
+            <?php foreach ($items as $item): ?>
+                <div>
+                    <label class="soal-label"><?= htmlspecialchars($item['nomor']) ?>. <?= htmlspecialchars($item['soal']) ?></label>
+                    <div class="jawaban-box"><?= nl2br(htmlspecialchars($item['jawaban'])) ?></div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+</div>
+
 </body>
 </html>

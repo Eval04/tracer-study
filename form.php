@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $noTelepon   = $_POST['no_telepon'] ?? '';
     $alamat      = $_POST['alamat'] ?? '';
     $tahunLulus  = $_POST['tahun_lulus'] ?? '';
-    $prodi       = $_POST['prodi'] ?? '';
+    $program_studi       = $_POST['program_studi'] ?? '';
     $gender      = $_POST['gender'] ?? '';
     $answers     = $_POST['jawaban'] ?? [];
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'no_telepon'    => $noTelepon,
             'alamat'        => $alamat,
             'tahun_lulus'   => $tahunLulus,
-            'prodi'         => $prodi,
+            'program_studi'         => $program_studi,
             'gender'        => $gender
         ]);
 

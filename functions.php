@@ -45,7 +45,7 @@ function saveMahasiswa($data) {
     $pdo = getDbConnection();
     $stmt = $pdo->prepare("
         INSERT INTO tb_mahasiswa 
-        (nim, password, nama_lengkap, tgl_lahir, gender, email, no_hp, alamat, tahun_lulus, prodi)
+        (nim, password, nama_lengkap, tgl_lahir, gender, email, no_hp, alamat, tahun_lulus, program_studi)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
             nama_lengkap = VALUES(nama_lengkap),
@@ -54,7 +54,7 @@ function saveMahasiswa($data) {
             no_hp = VALUES(no_hp),
             alamat = VALUES(alamat),
             tahun_lulus = VALUES(tahun_lulus),
-            prodi = VALUES(prodi)
+            program_studi = VALUES(program_studi)
     ");
     $stmt->execute([
         $data['nim'],
@@ -66,7 +66,7 @@ function saveMahasiswa($data) {
         $data['no_telepon'],
         $data['alamat'],
         $data['tahun_lulus'],
-        $data['prodi']
+        $data['program_studi']
     ]);
 }
 

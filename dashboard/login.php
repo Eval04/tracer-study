@@ -91,11 +91,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="login-card">
     <form method="POST">
       <div class="mb-3 text-start">
-        <label for="username" class="form-label">Username / NIM</label>
+        <label for="username" class="form-label">Username</label>
         <input type="text" class="form-control" id="username" name="username" required>
       </div>
       <div class="mb-4 text-start">
-        <label for="password" class="form-label">Password / Nama Lengkap</label>
+        <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" id="password" name="password" required>
       </div>
       <button type="submit" class="btn btn-darkblue w-100">LOGIN</button>

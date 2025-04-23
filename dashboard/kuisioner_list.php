@@ -16,25 +16,27 @@ $questions = $stmt->fetchAll();
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Daftar Pertanyaan Kuisioner</title>
-    <link rel="stylesheet" href="style/style.css">
+    <title>Daftar Pertanyaan Kuesioner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
             background: #f5f5f5;
-            padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .container {
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 40px auto;
             background: #fff;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         h1 {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            color: #003366;
         }
 
         table {
@@ -44,34 +46,87 @@ $questions = $stmt->fetchAll();
         }
 
         th, td {
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
+            vertical-align: middle;
         }
 
         th {
-            background-color: #f0f0f0;
+            background-color: #f1f1f1;
         }
 
         .btn-delete {
-            background: #dc3545;
+            background-color: #dc3545;
             color: white;
             border: none;
             padding: 6px 12px;
-            cursor: pointer;
             border-radius: 4px;
         }
 
         .btn-delete:hover {
-            background: #c82333;
+            background-color: #bb2d3b;
         }
+
+        .btn-edit {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .btn-edit:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-back {
+            margin-top: 25px;
+        }
+        .action-buttons .btn {
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-edit {
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 6px;
+  display: inline-block;
+  width: 60px;
+  text-align: center;
+  border: none;
+}
+
+.btn-edit:hover {
+  background-color: #0056b3;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+  display: inline-block;
+  width: 60px;
+  text-align: center;
+  border: none;
+}
+
+.btn-delete:hover {
+  background-color: #b02a37;
+}
+
     </style>
 </head>
 <body>
+
 <div class="container">
-    <h1>Daftar Pertanyaan Kuisioner</h1>
+    <h1>Daftar Pertanyaan Kuesioner</h1>
 
     <?php if (count($questions) > 0): ?>
-        <table>
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>No</th>
@@ -88,16 +143,23 @@ $questions = $stmt->fetchAll();
                         <td><?= htmlspecialchars($row['judul']) ?></td>
                         <td><?= htmlspecialchars($row['nama_kategori']) ?></td>
                         <td><?= htmlspecialchars($row['soal']) ?></td>
-                        <td>
-                            <button class="btn-delete" onclick="hapusPertanyaan(<?= $row['id'] ?>)">Hapus</button>
-                        </td>
+                        <td class="action-buttons">
+    <a href="edit_question.php?id=<?= $row['id'] ?>" class="btn btn-edit">Edit</a><br>
+    <button class="btn btn-delete" onclick="hapusPertanyaan(<?= $row['id'] ?>)">Hapus</button>
+</td>
+
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p>Belum ada pertanyaan tersedia.</p>
+        <p class="text-muted">Belum ada pertanyaan tersedia.</p>
     <?php endif; ?>
+    <div class="main-content">
+  <div class="btn-back text-start mb-3">
+    <a href="index.php" class="btn btn-secondary">← Kembali ke Dashboard</a>
+  </div>
+
 </div>
 
 <script>
@@ -123,5 +185,6 @@ function hapusPertanyaan(id) {
   }
 }
 </script>
+
 </body>
 </html>
